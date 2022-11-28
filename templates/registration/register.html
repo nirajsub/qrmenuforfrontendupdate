@@ -1,0 +1,65 @@
+
+{% extends 'dashboard/base.html' %}
+{% block title %}Reception-registration{% endblock title %}
+{% block content %}
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="row w-100 m-0">
+        <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
+          <div class="card col-lg-4 mx-auto">
+            <div class="card-body px-5 py-5">
+              <h3 class="card-title text-left mb-3">Register new Account</h3>
+              
+              <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label>Username</label>
+                  <input type="text" name="username" class="form-control p_input">
+                </div>
+                {% if error %}
+                    <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
+                        <p class="font-bold">{{error}}</p>
+                      </div>
+                    {% endif %}
+                <div class="form-group">
+                    <label>Organization Name</label>
+                    <input type="text" name="full_name" class="form-control p_input">
+                  </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="email" name="email" class="form-control p_input">
+                </div>
+                {% if error1 %}
+                    <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
+                        <p class="font-bold">{{error1}}</p>
+                      </div>
+                    {% endif %}
+                <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" name="password1" class="form-control p_input">
+                </div>
+                <div class="form-group">
+                  <label>Re-enter Password</label>
+                  <input type="password" name="password2" class="form-control p_input">
+                </div>
+                {% if error2 %}
+                <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
+                    <p class="font-bold">{{error2}}</p>
+                  </div>
+                {% endif %}
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary btn-block enter-btn">Register</button>
+                </div>
+                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+{% endblock content %}
+
+

@@ -1,0 +1,54 @@
+
+
+
+
+{% extends 'dashboard/base.html' %}
+{% block title %}{% endblock title %}
+{% block content %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="table-responsive">
+            <table class="table text-start align-middle mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th>  </th>
+                        <th> Product name </th>
+                        <th> Discount </th>
+                        <th> New Price </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        
+                        <tr >
+                            <td class="py-1">
+                                <img class="rounded-circle" src="{{exclusive.image.url}}" alt="image" style="width: 40px; height: 40px;">
+                            </td>
+                            <td>{{exclusive.name}}</td>
+                            <td > {{exclusive.product_discount}}%</td>
+                            <td > {{exclusive.product_newprice}}</td>
+                        </tr>
+                          
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-start rounded p-4">   
+<div class="col-sm-12 col-xl-6">
+    <div class="bg-light rounded h-100 p-4 ">
+        <h6 class="mb-4">Edit Exclusive product</h6>
+        {% load crispy_forms_tags %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit">Change</button>
+    </form>
+    </div>
+</div>
+</div>
+</div>
+{% endblock content %}

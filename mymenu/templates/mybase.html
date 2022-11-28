@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}Digital Menu</title>
+	{% block static %}
+	{% endblock static %}
+<link rel="icon" type="image/png" href="waiter/assets/img/Acetech.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<link href="{% static 'waiter/asset/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+<link href="{% static 'waiter/asset/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+
+<link href="{% static 'waiter/asset/vendor/select2/css/select2.min.css' %}" rel="stylesheet">
+
+<link href="{% static 'waiter/asset/css/homes.css' %}" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'waiter/asset/vendor/owl-carousel/owl.carousel.css' %}">
+<link rel="stylesheet" href="{% static 'waiter/asset/vendor/owl-carousel/owl.theme.css' %}">
+    <script type="text/javascript">
+		var user = '{{request.user}}'
+        function getToken(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getToken('csrftoken')
+    </script>
+</head>
+<body>
+    {% block content %}
+    {% endblock content %}
+	{% block script %}
+	{% endblock script %}
+	<script src="{% static 'waiter/asset/vendor/jquery/jquery-3.3.1.slim.min.js' %}"></script>
+	<!-- Bootstrap core JavaScript-->
+	{% comment %} <script src="{% static 'waiter/asset/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script> {% endcomment %}
+	<!-- Select2 JavaScript-->
+	{% comment %} <script src="{% static 'waiter/asset/vendor/select2/js/select2.min.js' %}"></script> {% endcomment %}
+	<!-- Owl Carousel -->
+	<script src="{% static 'waiter/asset/vendor/owl-carousel/owl.carousel.js' %}"></script>
+	<script src="{% static 'waiter/asset/js/scripts.js' %}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+	  integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+	  crossorigin="anonymous"></script>
+	 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+	  integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+	  crossorigin="anonymous"></script>
+</body>
+</html>
+
+

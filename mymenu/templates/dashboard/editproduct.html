@@ -1,0 +1,21 @@
+
+
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-start rounded p-4">
+<div class="col-sm-12 col-xl-6">
+    <div class="bg-light rounded h-100 p-4 ">
+        <h6 class="mb-4">Edit {{product.name}}</h6>
+        {% load crispy_forms_tags %}
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+        {{form|crispy}}
+        <input type ="submit" value = "update">
+    </form>
+    </div>
+</div>
+</div>
+</div>
+{% endblock content %}
+

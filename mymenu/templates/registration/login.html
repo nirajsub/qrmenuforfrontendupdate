@@ -1,0 +1,43 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Admin-Login</title>
+	{% load static %}
+    <meta name="description" content="" />
+    <meta name="author" content="George_Fx">
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="{% static 'asset/images/favicon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'asset/css/all.min.css' %}">
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'asset/css/animate.min.css' %}"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'asset/js/lib/slick/slick.css' %}"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'asset/css/orders.css' %}">
+</head>
+<body>
+    <div class="container">
+      <div class="wrapper">
+        <div class="title"><span>Login as Admin</span></div>
+        <form method="post">
+			  {% csrf_token %}
+          <div class="row">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Username" name='username' required>
+          </div>
+          <div class="row">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password" name="password" required>
+          </div>
+          {{error_message}}
+          <div class="row button">
+            <input type="submit" value="Login">
+          </div>
+          <a href="{% url 'password_reset' %}">Forgot password?</a>
+        </form>
+        
+      </div>
+    </div>
+  </body>

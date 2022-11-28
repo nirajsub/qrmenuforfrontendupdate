@@ -1,0 +1,42 @@
+
+
+
+
+{% extends 'dashboard/base.html' %}
+{% block content %}
+{% load static %}
+<p style="display:none ;">ID:{{mainuser.uuid}}</p>
+<p >ID:{{mainuser.uuid}}</p>
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <h1 class=" d-flex align-item-center justify-content-center">Product Category</h1>
+        {% for cat in category %}
+        <div class="col-sm-6 col-xl-3">
+            <a href ="{% url 'categorydetail' cat.id %}">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <div class="ms-3">
+                    <p class="mb-2">{{cat.name}}</p>
+                </div>
+                <a href="{% url 'editcategory' cat.id %}" class="btn btn-warning">edit</a>  
+                <a href="{% url 'deletecategory' cat.id %}" class="btn btn-danger">delete</a>  
+            </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+        
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded-top p-4">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
+                            &copy; <a href="https://acetechnepal.com">AceTech pvt.ltd</a>, All Right Reserved. 
+                        </div>
+                        <div class="col-12 col-sm-6 text-center text-sm-end">
+                            Designed By <a href="https://acetechnepal.com">AceTech</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+{% endblock content %}

@@ -1,0 +1,75 @@
+
+
+{% extends 'dashboard/base.html' %}
+{% block title %}{% endblock title %}
+{% block content %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="table-responsive">
+            <table class="table text-start align-middle mb-0">
+                <thead>
+                    <h2>Today's Special Menu</h2>
+                    <tr class="text-dark">
+                        <th>  </th>
+                        <th> Product name </th>
+                        <th> Price </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cat in category %}
+                    {% for product in cat.product_set.all %}
+                    {% if product.todays_special == True %}
+                        <tr >
+                            <td class="py-1">
+                                <img class="rounded-circle" src="{{product.image.url}}" alt="image" style="width: 40px; height: 40px;">
+                            </td>
+                            <td>{{product.name}}</td>
+                            <td > {{product.price}}</td>
+                            <td ><button class="btn btn-outline-danger"><a href="{% url 'removespecial' product.id %}" style="text-decoration: none;">Remove</a></button></td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <h3 class=" d-flex align-item-left justify-content-left">Select today's special</h3>
+        {% for cat in category %}
+        <div class="table-responsive">
+            <table class="table text-start align-middle mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th><h5> {{cat.name}} </h5></th>
+                        <th> Product name </th>
+                        <th> Amount </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        {% for product in cat.product_set.all %}
+                        
+                        <tr >
+                            <td class="py-1">
+                                <img class="rounded-circle" src="{{product.image.url}}" alt="image" style="width: 40px; height: 40px;">
+                            </td>
+                            <td>{{product.name}}</td>
+                            <td > {{product.price}}</td>
+                            <td ><button class="btn btn-outline-success"><a href="{% url 'addspecial' product.id %}" style="text-decoration: none;"> Add</a></button></td>
+                        </tr>
+                       
+                          {% endfor %}
+                         
+                </tbody>
+            </table>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

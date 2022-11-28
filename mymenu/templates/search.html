@@ -1,0 +1,173 @@
+
+
+
+{% extends 'mybase.html' %} {% block title %}Home{% endblock title %} 
+{% load static %} {% block content %}
+
+<div class="container mycontainer">
+  <div class="about2">
+    <div class="innerabout">
+      <button type="button" data-bs-toggle="modal" data-bs-target="#special"><img class="about-img" src="{% static 'asset/images/tospecial.jpg' %}" alt="" style="height: 90px; border: none; "></button>
+    </div>
+    <div class="innerabout">
+     <button type="button" data-bs-toggle="modal" data-bs-target="#exclusive"><img class="about-img" src="{% static 'asset/images/toffer.jpg' %}" alt="" style="height: 90px; border:none; "></button>
+    </div>
+ </div>
+ 
+  <div class="about">
+    <br>
+    <br>
+    
+  <i class="bi bi-skip-backward-circle"></i> <input type=button value="Back to Home" onClick="javascript:history.go(-1);" class="btn btn-border-primary">
+    
+    <br>
+    <h2>Search Result for {{request.GET.keyword}}</h2>
+    <div>
+      
+      <div class="container content active" id="allitem">
+        {% for product in results %}
+        {% if product.out_of_stock == False %}
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6">
+            <div class="bg-white rounded border shadow-sm">
+              <div class="gold-members p-3 border-bottom">
+                <span class="float-right">Rs.{{product.price}}</span>
+                <div class="media">
+                  <div class="mr-3"><img src="{{product.image.url}}" alt="" style="height: 45px; width: 45px;"></div>
+                  <div class="media-body">
+                    <h6 class="mb-1">{{product.name}}</h6>
+                    <p class="text-gray mb-0">{{product.category}}</p>
+                  </div>
+                </div>
+                <div class="float-center d-flex justify-content-center">
+                <span data-price={{product.price}} data-table={{tableno.id}} data-product={{product.id}}
+                    data-action="add" class="qrcount">
+                    </span>
+                  </div>
+                <div class="float-center d-flex justify-content-center">
+                  
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+  {% else %}
+  {% endif %}
+  {% endfor %}
+</div>
+      {% for list in category %}
+      <div class="container content " id="{{list.name}}">
+        {% for product in list.product_set.all %}
+        {% if product.out_of_stock == False %}
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6">
+            <div class="bg-white rounded border shadow-sm">
+              <div class="gold-members p-3 border-bottom">
+                <span class="float-right">Rs.{{product.price}}</span>
+
+                <div class="media">
+                  <div class="mr-3"><img src="{{product.image.url}}" alt="" style="height: 45px; width: 45px;"></div>
+                  <div class="media-body">
+                    <h6 class="mb-1">{{product.name}}</h6>
+                    <p class="text-gray mb-0">{{product.category}}</p>
+                  </div>
+                </div>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        <span data-price={{product.price}} data-table={{tableno.id}} data-product={{product.id}} data-action="add"
+          class="count">
+        </span>
+  {% else %}
+  {% endif %}
+  {% endfor %}
+</div>
+{% endfor %}
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div class="modal fade" id="special" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="addtocartLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header border-bottom-0">
+      <div class="close-container" data-bs-dismiss="modal">
+        <div class="leftright"></div>
+        <div class="rightleft"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="containers">
+        <h1 class="heading">Today's Special Product</h1>
+        <div class="box-containers">
+            {% for list in category %}
+            {% for product in list.product_set.all %}
+            {% if product.todays_special == True %}
+            <div class="boxs">
+                <img src="{{product.image.url}}" alt="">
+                <h3>{{product.name}}</h3>
+                <h3>Rs.{{product.price}}</h3>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+    <div class="modal-footer border-top-0 d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary btn_close" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class="modal fade" id="exclusive" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="addtocartLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header border-bottom-0">
+      <div class="close-container" data-bs-dismiss="modal">
+        <div class="leftright"></div>
+        <div class="rightleft"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="containers">
+        <h1 class="heading">Exclusive Product</h1>
+        <div class="box-containers">
+            {% for list in category %}
+            {% for product in list.product_set.all %}
+            {% if product.exclusive == True %}
+            <div class="boxs">
+                <div class="offericon">
+                    <h3>{{product.product_discount}}% Off</h3>
+                </div>
+                <img src="{{product.image.url}}" alt="">
+                <h3>{{product.name}}</h3>
+               <h3><p style="text-decoration: line-through;">Rs.{{product.price}}</p> Rs.{{product.product_newprice}}</h3>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+    <div class="modal-footer border-top-0 d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary btn_close" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock content %}

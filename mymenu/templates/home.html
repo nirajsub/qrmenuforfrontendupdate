@@ -1,0 +1,206 @@
+
+
+{% extends 'mybase.html' %} {% block title %}Home{% endblock title %} 
+{% load static %} {% block content %}
+<div class="container mycontainer">
+  <div class="header-section">
+  <form class="explore-outlets-search mb-2 rounded overflow-hidden border" method="GET" action="{% url 'search' %}">
+    <div class="input-group">
+      <input type="text" placeholder="Search for dishes..." class="form-control border-0" name='keyword'>
+      <div class="input-group-append">
+        <button type="button" class="btn btn-primary">
+          <i class="icofont-search"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+  <div class="about2">
+     <div class="innerabout">
+       <button type="button" data-bs-toggle="modal" data-bs-target="#special"><img class="about-img" src="{% static 'asset/images/todayspecial.png' %}" alt="" style="height: 90px; border: none; "></button>
+     </div>
+     <div class="innerabout">
+      <button type="button" data-bs-toggle="modal" data-bs-target="#exclusive"><img class="about-img" src="{% static 'asset/images/exclusive.webp' %}" alt="" style="height: 90px; border:none; "></button>
+     </div>
+  </div>
+  <div class="specialheader">
+    <h3>{{mainuser.full_name}} Menu</h3>
+ </div>
+  <div class="about">
+    <div class="stikiness">
+      <div class="owl-carousel owl-carousel-category owl-theme ">
+        <div class="item">
+          <div class="ace-category-item">
+            <img class="img-fluid" data-id="allitem"
+              src="{% static 'asset/images/myallitems.jpg' %}" alt="">
+            <h6>All Items</h6>
+          </div>
+        </div>
+        
+        {% for list in category %}
+        {% if list.not_available == False %}
+        <div class="item">
+          <div class="ace-category-item">
+            <img class="img-fluid" data-id="{{list.name}}" src="{{list.image.url}}" alt="">
+            <h6>{{list.name}}</h6>
+          </div>
+        </div>
+        {% else %}
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+      <div class="container content active" id="allitem">
+        {% for item in category %}
+        {% for product in item.product_set.all %}
+        {% if product.out_of_stock == False %}
+        
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6">
+            <div class="bg-white rounded border shadow-sm">
+              <div class="gold-members p-3 border-bottom">
+                {% if product.exclusive == True %}
+                <span class="float-right" ><p style="text-decoration:line-through;">Rs.{{product.price}}</p><span>{{product.product_newprice}}</span></span>
+                
+                {% else %}
+                <span class="float-right">Rs.{{product.price}}</span>
+                {% endif %}
+                <div class="media">
+                  <div class="mr-3"><img src="{{product.image.url}}" alt="" style="height: 45px; width: 45px;"></div>
+                  <div class="media-body">
+                    <p class="mb-1">{{product.name}}</p>
+                    <p class="text-gray mb-0">{{product.category}} {{product.description}}</p>
+                  </div>
+                </div>
+                <div class="float-center d-flex justify-content-center">
+                <span data-price={{product.price}} data-table={{tableno.id}} data-product={{product.id}}
+                    data-action="add" class="qrcount">
+                    </span>
+                  </div>
+                <div class="float-center d-flex justify-content-center">
+                  
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+      </div>
+
+      {% for list in category %}
+      <div class="container content " id="{{list.name}}">
+        {% for product in list.product_set.all %}
+        {% if product.out_of_stock == False %}
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6">
+            <div class="bg-white rounded border shadow-sm">
+              <div class="gold-members p-3 border-bottom">
+                {% if product.exclusive == True %}
+                <span class="float-right" ><p style="text-decoration:line-through;">Rs.{{product.price}}</p><span>{{product.product_newprice}}</span></span>
+                
+                {% else %}
+                <span class="float-right">Rs.{{product.price}}</span>
+                {% endif %}
+
+                <div class="media">
+                  <div class="mr-3"><img src="{{product.image.url}}" alt="" style="height: 45px; width: 45px;"></div>
+                  <div class="media-body">
+                    <p type="button" class="mb-1">{{product.name}}</p>
+                    <p class="text-gray mb-0">{{product.category}} {{product.description}}</p>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      
+  {% else %}
+  {% endif %}
+  {% endfor %}
+</div>
+{% endfor %}
+</div>
+</div>
+
+
+<div class="modal fade" id="special" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="addtocartLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header border-bottom-0">
+      <div class="close-container" data-bs-dismiss="modal">
+        <div class="leftright"></div>
+        <div class="rightleft"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="containers">
+        <h3 class="heading">Today's Special Product</h3>
+        <div class="box-containers">
+            {% for list in category %}
+            {% for product in list.product_set.all %}
+            {% if product.todays_special == True %}
+            <div class="boxs">
+                <img src="{{product.image.url}}" alt="">
+                <h3>{{product.name}}</h3>
+                <h3>Rs.{{product.price}}</h3>
+                
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+    <div class="modal-footer border-top-0 d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary btn_close" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class="modal fade" id="exclusive" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="addtocartLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header border-bottom-0">
+      <div class="close-container" data-bs-dismiss="modal">
+        <div class="leftright"></div>
+        <div class="rightleft"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="containers">
+        <h3 class="heading">Exclusive Product</h3>
+        <div class="box-containers">
+            {% for list in category %}
+            {% for product in list.product_set.all %}
+            {% if product.exclusive == True %}
+            <div class="boxs">
+                <div class="offericon">
+                    <h4>{{product.product_discount}}%</h4> <h6>Off</h6>
+                </div>
+                <img src="{{product.image.url}}" >
+                <h3>{{product.name}}</h3>
+               <h3><p style="text-decoration: line-through;">Rs.{{product.price}}</p> Rs.{{product.product_newprice}}</h3>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+    <div class="modal-footer border-top-0 d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary btn_close" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock content %}
