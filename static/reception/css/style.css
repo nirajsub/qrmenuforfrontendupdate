@@ -13,6 +13,24 @@
     z-index: 99;
 }
 
+.footers{
+    position: fixed;
+    bottom: 0px;
+}
+
+.mytables{
+    overflow-y: scroll;
+    margin-bottom: 2.5rem;
+}
+
+.mygap{
+    gap: 50%;
+}
+
+.marginBtn{
+    margin-bottom: 3rem;
+}
+
 
 /* CSS */
 .btn-print {
@@ -58,6 +76,13 @@
   @media (min-width: 768px) {
     .btn-print {
       padding: 16px 48px;
+    }
+    
+  }
+
+  @media (max-width: 768px) {
+    .mygap{
+        gap: 20%;
     }
   }
 

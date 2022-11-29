@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+    # path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('secret-url_path/login/admin', admin.site.urls),
     path('', include('mymenu.urls')),
     path('', include("django.contrib.auth.urls")),

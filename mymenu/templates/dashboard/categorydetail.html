@@ -7,14 +7,12 @@
 {% block content %}
     <div class="container-fluid pt-4 px-4">
         <div class="bg-light text-center rounded p-4">
-            <div class="d-flex align-items-center justify-content-center mb-4">
-                <h6 class="mb-0 align-items-center">{% for cat in category %}
-                    
+            <div class="d-flex align-items-center justify-content-center mb-4 mygap">
+                {% for cat in category %}
                     <h2>{{cat.name}}</h2>
-                    <a href="{% url 'addproduct' cat.id %}"><button class="btn btn-success">App Product</button>
-                    
+                    <a href="{% url 'addproduct' cat.id %}"><button class="btn btn-success">Add Product</button> </a>
                     {% endfor %}
-                </h6>
+                
             </div>
             <div>
               
@@ -26,7 +24,7 @@
                             <th>  </th>
                             <th> Product name </th>
                             <th> Amount </th>
-                            <th></th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,8 +36,7 @@
                                 </td>
                                 <td>{{product.name}}</td>
                                 <td > {{product.price}}</td>
-                                <td ><button class="btn btn-outline-warning"><a href="{% url 'editproduct' product.id %}" style="text-decoration: none;"> Edit</a></button></td>
-                                <td ><button class="btn btn-outline-danger"><a href="{% url 'deleteproduct' product.id %}" style="text-decoration: none;"> Delete</a></button></td>
+                                <td ><a href="{% url 'editproduct' product.id %}" class="btn btn-warning"><i class="fa fa-edit"> </i></a> <a href="{% url 'deleteproduct' product.id %}" class="btn btn-danger"><i class="fa fa-trash"> </i></a></td>
                             </tr>
                               {% endfor %}
                         {% endfor %}
